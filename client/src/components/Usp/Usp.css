@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .text-mobile {
+    @apply text-5xl;
+  }
+
+  .icon-mobile {
+    @apply text-4xl p-6;
+  }
+
+  .center-mobile {
+    @apply text-left;
+  }
+
+  .margin-mobile {
+    @apply ps-32;
+  }
+
+  .flex-mobile {
+    @apply divide-x-2;
+  }
+
+  .mobile-point {
+    @apply ms-4;
+  }
+
+  .description-text {
+    @apply leading-relaxed;
+    word-wrap: break-word;  /* Ensure long words break properly */
+    overflow-wrap: break-word; /* Ensure content breaks within the container */
+    white-space: normal; /* Prevent text from continuing on one line */
+  }
+  
+  .rounded-mobile {
+    @apply rounded-full
+  }
+
+  @media (max-width: 767px) {
+    .margin-mobile {
+      @apply ps-2 pe-4;
+    }
+
+    .text-mobile {
+      @apply text-2xl;
+    }
+
+    .center-mobile {
+      @apply text-center;
+    }
+
+    .flex-mobile {
+      @apply flex-col divide-y-0 divide-x-0;
+    }
+
+    .mobile-point {
+      @apply ms-0;
+    }
+
+    .icon-mobile {
+      @apply text-xl p-4 pt-7;
+    }
+
+    .rounded-mobile {
+      @apply rounded-xl
+    }
+
+    .description-text {
+      @apply text-sm leading-normal;
+      @apply break-words;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      white-space: normal;
+    }
+  }
+}
