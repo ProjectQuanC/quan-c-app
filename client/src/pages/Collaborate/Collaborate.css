@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .collaborate-container-margin {
+    @apply m-36 p-24;
+  }
+
+  .prose-mobile {
+    @apply prose-xl;
+  }
+
+  @media (max-width: 767px) {
+    .collaborate-container-margin {
+      @apply m-2 p-8;
+    }
+
+    .prose-mobile {
+      @apply prose-sm;
+    }
+  }
+}

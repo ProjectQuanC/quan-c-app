@@ -1,0 +1,16 @@
+@import '@fontsource/lexend/400.css';
+@import '@fontsource/lexend/700.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  @apply bg-background-default font-body overflow-x-hidden;
+}

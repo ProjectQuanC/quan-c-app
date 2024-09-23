@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .error-text-mobile {
+    @apply text-[18rem];
+  }
+
+  .error-desc-mobile {
+    @apply text-6xl;
+  }
+
+  @media (max-width: 767px) {
+    .error-text-mobile {
+      @apply text-6xl;
+    }
+
+    .error-desc-mobile {
+      @apply text-4xl;
+    }
+  }
+}
