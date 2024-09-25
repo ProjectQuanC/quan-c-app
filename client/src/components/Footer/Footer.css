@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+
+  .padding-mobile {
+    @apply ps-64 pt-24 pe-16 pb-12;
+  }
+
+  .text-footer-mobile {
+    @apply text-center;
+  }
+
+  .gap-mobile {
+    @apply gap-4
+  }
+  @media (max-width: 767px) {
+    .flex-mobile {
+      @apply flex-col;
+      @apply gap-16;
+    }
+
+    .padding-mobile {
+      @apply ps-4 pt-24 pe-16 pb-12;
+    }
+
+    .gap-mobile {
+      @apply gap-4;
+    }
+
+    .text-footer-mobile {
+      @apply ps-4;
+      @apply text-left;
+    }
+  }
+}

@@ -1,0 +1,29 @@
+/* accordion.css */
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-out;
+}
+
+.accordion-content.expanded {
+  max-height: 500px; /* Adjust this value based on your content */
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .faq-container-margin {
+    @apply m-36 p-24;
+  }
+  @media (max-width: 767px) {
+    .faq-container-margin {
+      @apply m-2 p-8;
+    }
+
+    .faq-text-mobile {
+      @apply text-left;
+    }
+  }
+}

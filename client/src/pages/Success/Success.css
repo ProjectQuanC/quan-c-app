@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+
+  .margin-success-mobile {
+    @apply me-4;
+  }
+  
+  @media (max-width: 767px) {
+    .margin-success-mobile {
+      @apply me-0;
+    }
+  }
+}

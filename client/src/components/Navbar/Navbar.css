@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .padding-top-logo {
+    @apply pt-2
+  }
+
+  @media (max-width: 767px) {
+    .padding-top-logo {
+      @apply pt-4
+    }
+  }
+}
