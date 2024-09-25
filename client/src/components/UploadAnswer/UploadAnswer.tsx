@@ -100,10 +100,11 @@ export default function UploadAnswer({ user_id, challenge_id, total_test_case }:
 
 
   const getLog = () => {
+    const url = process.env.REACT_APP_API_BASE_URL
     let config = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: `http://localhost:8000/getSubmissionLog/${submissionId}`,
+      url: `${url}/getSubmissionLog/${submissionId}`,
       headers: { 
         'Authorization': `Bearer ${token}`
       }

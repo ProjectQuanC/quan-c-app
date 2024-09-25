@@ -37,7 +37,8 @@ export const fetchChallengeDetail = (id: string) => {
     dispatch(fetchChallengeDetailRequest())
 
     try {
-      const response = await axios.get<{ data: ChallengeDetail }>(`http://localhost:8000/getChallengeDetails/${id}`);
+      const url = process.env.REACT_APP_API_BASE_URL
+      const response = await axios.get<{ data: ChallengeDetail }>(`${url}/getChallengeDetails/${id}`);
 
       if (!response.data) {
         throw new Error('Failed to fetch challenge details');

@@ -33,7 +33,8 @@ export const fetchChallenges = (page: number, value: string, searchQuery: string
     });
 
     try {
-      const response = await axios.post('http://localhost:8000/getChallenges', data, {
+      const url = process.env.REACT_APP_API_BASE_URL
+      const response = await axios.post(`${url}/getChallenges`, data, {
         headers: {
           'Authorization': `Bearer ${accessToken}`,
           'Content-Type': 'application/json'

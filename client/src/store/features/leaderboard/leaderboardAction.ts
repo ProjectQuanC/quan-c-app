@@ -42,8 +42,9 @@ export const fetchLeaderboard = (userId: string, challengeId: string) => {
     };
 
     try {
+      const url = process.env.REACT_APP_API_BASE_URL
       const response = await axios.post<LeaderboardResponse>(
-        'http://localhost:8000/getChallengeLeaderboard',
+        `${url}/getChallengeLeaderboard`,
         data,
         config
       );

@@ -9,7 +9,8 @@ export const fetchUserData = () => async (dispatch: Dispatch) => {
   dispatch({ type: FETCH_USER_DATA_REQUEST });
 
   try {
-    const response = await fetch('http://localhost:8000/getUserData', {
+    const url = process.env.REACT_APP_API_BASE_URL
+    const response = await fetch(`${url}/getUserData`, {
       method: 'GET',
       headers: {
         'Authorization': 'Bearer ' + localStorage.getItem('TOKEN'),
