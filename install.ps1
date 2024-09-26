@@ -16,13 +16,13 @@ $dependencies = @(
 
 # Display progress
 function Show-Progress {
-	param {
+	param (
 		[int]$currentStep,
 		[int]$totalSteps,
 		[string]$status
-	}
+	)
 	$percentComplete = [math]::Round(($currentStep / $totalSteps) * 100)
-	Write-Progress -Activity "Installing dependenvies" -Status $status -PercentComplete $percentComplete
+	Write-Progress -Activity "Installing dependencies" -Status $status -PercentComplete $percentComplete
 }
 
 # Check installation of chocolatey
@@ -45,6 +45,8 @@ foreach ($package in $dependencies) {
 
 	if (choco list --local-only | Select-String $package) {
 		Write-Host "$package is already installed."
+		Write-Host "upgrading $package..."
+		choco upgrade $package -y
 	} else {
 		Write-Host "Ready to install $package"
 
@@ -52,13 +54,37 @@ foreach ($package in $dependencies) {
 		$confirm = Read-Host "Do you want to install $package? (y/n)"
 		if ($confirm -eq "y") {
 			Write-Host "Installing $package..."
+
+			Write-Progress -Activity "Installing dependencies" -Status "Installing $package via Chocolatey" -PercentComplete 100 -Completed
 			choco install $package -y
+			Show-Progress -currentStep $currentStep -totalSteps $totalSteps -Status "$package installation completed"
 		} else {
 			Write-Host "Skipping $package installation"
 		}
 	}
 }
 
+# Checking git
+Show-Progress -currentStep $currentStep -totalSteps	$totalSteps -status "Configuring Git in PATH"
+
+$gitpath = "C:\Program Files\Git\bin"
+
+# Check git path and adding to env variables
+if (Test-Path $gitpath) {
+	$currentPath = [System.Environment]::GetEnvironmentVariable("Path", [System.EnvironmentVariableTarget]::Machine)
+
+	if (-not ($currentPath -like "*$gitpath*")) {
+		Write-Host "Adding Git to PATH..."
+
+		[System.Environment]::SetEnvironmentVariable("Path", "$currentPath;$gitpath", [System.EnvironmentVariableTarget]::Machine)
+		$env:Path += ";$gitpath"
+		Write-Host "Git has been added to PATH."
+	} else {
+		Write-Host "Git is already in the PATH."
+	}
+} else {
+	Write-Host "Git installation path not found"
+}
+
 Write-Host "All dependencies are installed!"
 Write-Host "Setup complete!"
-Write-Host -Activity "Installation" -Status "Complete" -Completed
