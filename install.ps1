@@ -11,7 +11,9 @@ Set-ExecutionPolicy Bypass -Scope Process -Force
 $dependencies = @(
 	"git",
 	"nodejs",
-	"python"
+	"python",
+	"docker-desktop",
+	"mysql"
 )
 
 # Display progress
@@ -45,8 +47,7 @@ foreach ($package in $dependencies) {
 
 	if (choco list --local-only | Select-String $package) {
 		Write-Host "$package is already installed."
-		Write-Host "upgrading $package..."
-		choco upgrade $package -y
+
 	} else {
 		Write-Host "Ready to install $package"
 
@@ -84,6 +85,27 @@ if (Test-Path $gitpath) {
 	}
 } else {
 	Write-Host "Git installation path not found"
+}
+
+# Checking MySQL
+Show-Progress -currentStep $currentStep -totalSteps $totalSteps -status "Configuring MySQL in PATH"
+
+$mysqlpath = "C:\tools\mysql\current\bin"
+
+# Check MySQL path and adding to env variables
+if (Test-Path $mysqlpath) {
+	$currentPath = [System.Environment]::GetEnvironmentVariable("Path", [System.EnvironmentVariableTarget]::Machine)
+
+	if (-not ($currentPath -like "*$mysqlpath*")) {
+		Write-Host "Adding MySQL to PATH..."
+		[System.Environment]::SetEnvironmentVariable("Path", "$currentPath;$mysqlpath", [System.EnvironmentVariableTarget]::Machine)
+		$env:Path += ";$mysqlpath"
+		Write-Host "MySQL has been added to PATH."
+	} else {
+		Write-Host "MySQL is already in the PATH."
+	}
+} else {
+	Write-Host "MySQL installation not found"
 }
 
 Write-Host "All dependencies are installed!"
