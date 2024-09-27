@@ -1,6 +1,6 @@
 # Quan-C Secure Coding
 
-![QuanCBanner](../quan-c-app/image/quan-c.png)
+![QuanCBanner](./image/quan-c.png)
 
 <br>
 
