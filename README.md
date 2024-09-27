@@ -41,6 +41,6 @@
 Template for setup, installation and deployment
 
 ## Contributors
-[xhmfvls](https://github.com/xhmfvls)<br>
+[xhfmvls](https://github.com/xhfmvls)<br>
 [vhsxuz](https://github.com/vhsxuz)<br>
 [newdna](https://github.com/newdna)
