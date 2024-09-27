@@ -1,4 +1,6 @@
-# Quan-C Secure Coding
+d# Quan-C Secure Coding
+
+<div align="center">
 
 ![QuanCBanner](./image/quan-c.png)
 
@@ -13,6 +15,7 @@
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
 
+</div>
 
 ## Quan-C
 <b>Quan-C</b> is an open source Secure Programming Platform that aims to train developers and IT security practitioners to level up their secure programming knowledges and skills.
