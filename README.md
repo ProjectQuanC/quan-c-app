@@ -1,4 +1,4 @@
-d# Quan-C Secure Coding
+# Quan-C Secure Coding
 
 <div align="center">
 
