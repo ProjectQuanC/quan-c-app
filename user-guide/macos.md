@@ -4,9 +4,9 @@
 
 - [Installation](#installation)
   - [Pre-requisites](#pre-requisites)
-  - [Procedure for installing](#procedure-for-installing)
-    * [GitHub](#github)
-  - [After installation](#after-installation)
+
+- [Setup GitHub Client](#setup-github-client)
+- [Getting Started](#getting-started)
 
 ## Installation
 
