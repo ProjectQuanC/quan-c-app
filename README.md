@@ -17,12 +17,19 @@
 
 </div>
 
-## Quan-C
-<b>Quan-C</b> is an open source Secure Programming Platform that aims to train developers and IT security practitioners to level up their secure programming knowledges and skills.
+## Quan C
+<b>Quan C</b> is an open source Secure Programming Platform that aims to train developers and IT security practitioners to level up their secure programming knowledges and skills.
 
 
-## Features
-- Template for features
+## Key Features
+- <u><b>Case Solving </b> </u> \
+Quan C enables users to learn secure coding through hands-on, experiential learning by solving real-world cases available within the system.
+
+- <u><b>Leaderboards </b></u> \
+Compete with others by solving cases and racing to secure the top spot on the leaderboard. Your rank is determined by how quickly and efficiently you solve problems compared to other users, showcasing both your speed and expertise in secure coding.
+
+- <u><b>Collaborate With Us </b></u> \
+Have a case in mind? Help improve our platform by recommending new cases, and contribute to creating a more robust learning experience for all users.
 
 ## Minimum Requirements
 - Python 3.9.x
