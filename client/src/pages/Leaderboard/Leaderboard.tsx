@@ -40,7 +40,7 @@ const Leaderboard: React.FC = () => {
             alt={user.name || 'User Avatar'}
           />
         )}
-        <h2 className="text-xl font-semibold mb-2">{user?.name || 'Username'}</h2>
+        <h2 className="text-xl font-semibold mb-2">{user?.login || 'Username'}</h2>
         <p className="text-lg text-gray-400">Rank: {userRank}</p>
       </div>
 
