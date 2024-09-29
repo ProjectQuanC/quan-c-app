@@ -26,7 +26,16 @@
 ![QuanCBanner](../image/oauth-2.png)
 5. Create Client Secret
 ![QuanCBanner](../image/oauth-3.png)
-6. Insert the client secret in [.env.example](../server/.env.example)
+6. Create .env file in these directories
+  - client
+  - admin-panel (if needed)
+  - server
+  - runner
+7. Insert the client secret in 
+  - [client .env](../client/.env)
+  - [admin panel .env](../server/.env) (if needed)
+  - [server .env](../server/.env)
+  - [runner .env](../runner/.env)
 ```
 CLIENT_SECRET=[Github Client Secret]
 CLIENT_ID=[Github Client ID]
