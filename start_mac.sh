@@ -14,16 +14,47 @@ copy_env_if_not_exists() {
   fi
 }
 
-# Copy .env.example to .env in the frontend (client) directory
-copy_env_if_not_exists "$CURRENT_DIR/client"
+# List of directories to check for .env file
+DIRECTORIES=("runner" "server" "client" "admin-panel")
 
-# Copy .env.example to .env in the backend (server) directory
-copy_env_if_not_exists "$CURRENT_DIR/server"
+# Loop through each directory and copy .env.example to .env if needed
+for DIR in "${DIRECTORIES[@]}"; do
+  copy_env_if_not_exists "$CURRENT_DIR/$DIR"
+done
 
-# Start frontend in a new Terminal tab (macOS)
+# Function to install and activate Python virtual environment
+setup_python_env() {
+  local DIR=$1
+  echo "Setting up Python virtual environment in $DIR"
+  
+  # Install python3-venv if not already installed
+  sudo apt install -y python3-venv
+  
+  # Create the virtual environment
+  python3 -m venv "$DIR/venv"
+  
+  # Activate the virtual environment
+  source "$DIR/venv/bin/activate"
+  
+  # Install Python dependencies
+  pip install -r "$DIR/requirements.txt"
+  
+  # Install the quanchecker package
+  pip install quanchecker
+}
+
+# Backend setup: Setup and activate virtual environment for the runner directory
+setup_python_env "$CURRENT_DIR/runner"
+
+# Activate the virtual environment
+echo "Activating the virtual environment..."
+source "$CURRENT_DIR/runner/venv/bin/activate"
+
+# Start the backend server using uvicorn in a new Terminal tab (macOS)
+osascript -e 'tell application "Terminal" to do script "cd '"$CURRENT_DIR"'/runner && source venv/bin/activate && uvicorn app.main:app --port 8080"'
+osascript -e 'tell application "Terminal" to do script "cd '"$CURRENT_DIR"'/server && npm install && npm run run"'
+
+# Start the frontend in a new Terminal tab (macOS)
 osascript -e 'tell application "Terminal" to do script "cd '"$CURRENT_DIR"'/client && npm install && npm start"'
 
-# Start backend in a new Terminal tab (macOS)
-osascript -e 'tell application "Terminal" to do script "cd '"$CURRENT_DIR"'/server && npm install && npm start"'
-
-echo "Frontend and backend started in separate Terminal tabs."
+echo "Backend and frontend started in separate Terminal tabs."
