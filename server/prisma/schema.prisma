@@ -1,0 +1,75 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "mysql"
+    url      = env("DATABASE_URL")
+}
+
+model User {
+    user_id    String   @id @default(uuid())
+    role_id    String
+    github_id  String
+    created_at DateTime @default(now())
+
+    Role       UserRole     @relation(fields: [role_id], references: [role_id])
+    Submission Submission[]
+}
+
+model Challenge {
+    challenge_id    String   @id @default(uuid())
+    challenge_title String   @unique
+    repo_link       String
+    points          Int
+    total_test_case Int
+    created_at      DateTime @default(now())
+
+    Submissions Submission[]
+    Tagassign   TagAssign[]
+}
+
+model Submission {
+    submission_id          String   @id @default(uuid())
+    user_id                String
+    challenge_id           String
+    status                 Boolean
+    passed_test_case_value Int
+    log_file_path          String?
+    created_at             DateTime @default(now())
+
+    User      User      @relation(fields: [user_id], references: [user_id])
+    Challenge Challenge @relation(fields: [challenge_id], references: [challenge_id])
+}
+
+model Tag {
+    tag_id     String   @id @default(uuid())
+    tag_name   String
+    created_at DateTime @default(now())
+
+    Tagassign TagAssign[]
+}
+
+model TagAssign {
+    tag_assign_id String   @id @default(uuid())
+    challenge_id  String
+    tag_id        String
+    created_at    DateTime @default(now())
+
+    Challenge Challenge @relation(fields: [challenge_id], references: [challenge_id])
+    Tag       Tag       @relation(fields: [tag_id], references: [tag_id])
+}
+
+model UserRole {
+    role_id    String   @id @default(uuid())
+    role_name  String
+    created_at DateTime @default(now())
+
+    Users User[]
+}
