@@ -52,6 +52,10 @@ cd quan-c-app/
 ```
 sh start_mac.sh
 ```
-
-3. go to http://localhost:3000
+3. setup the `.env` values based on the example provided in `.env.example` in every directory
+    - [client .env](../client/.env)
+    - [admin panel .env](../server/.env) (if needed)
+    - [server .env](../server/.env)
+    - [runner .env](../runner/.env)
+4. go to http://localhost:3000
 
