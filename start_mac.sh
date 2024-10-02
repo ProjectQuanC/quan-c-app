@@ -9,15 +9,15 @@ copy_env_if_not_exists() {
   if [ -f "$DIR/.env" ]; then
     echo ".env already exists in $DIR"
   else
-    echo "Creating .env in $DIR from .env.example"
-    cp "$DIR/.env.example" "$DIR/.env"
+    echo "Error: .env is missing in $DIR. Please create the .env file."
+    exit 1
   fi
 }
 
 # List of directories to check for .env file
 DIRECTORIES=("runner" "server" "client" "admin-panel")
 
-# Loop through each directory and copy .env.example to .env if needed
+# Loop through each directory and check for the existence of .env
 for DIR in "${DIRECTORIES[@]}"; do
   copy_env_if_not_exists "$CURRENT_DIR/$DIR"
 done
