@@ -22,16 +22,25 @@ for DIR in "${DIRECTORIES[@]}"; do
   copy_env_if_not_exists "$CURRENT_DIR/$DIR"
 done
 
-# Function to install and activate Python virtual environment
+# Function to install and activate Python virtual environment using Homebrew
 setup_python_env() {
   local DIR=$1
   echo "Setting up Python virtual environment in $DIR"
-  
-  # Install python3-venv if not already installed
-  sudo apt install -y python3-venv
-  
-  # Create the virtual environment
-  python3 -m venv "$DIR/venv"
+
+  # Check if Homebrew is installed, if not install it
+  if ! command -v brew &> /dev/null; then
+    echo "Homebrew not found. Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  fi
+
+  # Check if Python is installed via Homebrew, if not install it
+  if ! brew list python@3.11 &> /dev/null; then
+    echo "Installing Python 3.11 using Homebrew..."
+    brew install python@3.11
+  fi
+
+  # Create the virtual environment using Homebrew Python
+  /opt/homebrew/bin/python3.11 -m venv "$DIR/venv"
   
   # Activate the virtual environment
   source "$DIR/venv/bin/activate"
@@ -45,6 +54,8 @@ setup_python_env() {
 
 # Backend setup: Setup and activate virtual environment for the runner directory
 setup_python_env "$CURRENT_DIR/runner"
+
+open -a Docker
 
 # Activate the virtual environment
 echo "Activating the virtual environment..."
