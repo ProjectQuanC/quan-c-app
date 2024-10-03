@@ -45,7 +45,7 @@ Have a case in mind? Help improve our platform by recommending new cases, and co
 - Storage 16 GB
 
 ## Quick Start
-Template for setup, installation and deployment
+For the setup guide, please refer to [user-guide](/user-guide/)
 
 ## Contributors
 [xhfmvls](https://github.com/xhfmvls)<br>
