@@ -119,7 +119,7 @@ function AddChallenge() {
               <label htmlFor="url" className="block text-sm font-medium text-gray-700 mb-1">Challenge URL</label>
               <input
                 id="url"
-                type="url"
+                type="text"
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
                 required

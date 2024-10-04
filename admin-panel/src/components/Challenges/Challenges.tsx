@@ -86,7 +86,7 @@ const Challenges: React.FC = () => {
   };
 
   const handleUpdateChallenge = (challenge_id: string) => {
-    navigate(`/challenge-id/${challenge_id}`);
+    navigate(`/update-challenge/${challenge_id}`);
   }
 
   const handleDeleteChallenge = async (challenge_id: string) => {
