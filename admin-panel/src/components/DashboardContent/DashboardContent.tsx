@@ -6,7 +6,7 @@ interface DashboardContentProps {
 
 const DashboardContent: React.FC<DashboardContentProps> = ({ username }) => {
   return (
-    <div className="flex flex-col items-center justify-center h-full">
+    <div className="flex flex-col items-center justify-center h-screen">
       <img
         src={`${process.env.PUBLIC_URL}/quan-c-logo-black.png`}
         alt="Quan C Logo"

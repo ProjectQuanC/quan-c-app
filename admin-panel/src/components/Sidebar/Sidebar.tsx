@@ -48,7 +48,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, setOpen, activeMenu, setActiveM
   }, []);
 
   return (
-    <div className={`bg-background-default h-screen p-5 pt-8 ${open ? 'w-72' : 'w-20'} duration-300 relative flex flex-col`}>
+    <div className={`bg-background-default h-screen p-5 pt-8 ${open ? 'w-72' : 'w-20'} duration-300 fixed flex flex-col`}>
       {/* Toggle button for the sidebar */}
       <BsArrowLeftShort
         className={`bg-white text-background-default text-3xl rounded-full absolute -right-3 top-9 border border-background-default cursor-pointer ${!open && "rotate-180"}`}

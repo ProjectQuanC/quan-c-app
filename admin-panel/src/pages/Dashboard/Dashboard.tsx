@@ -69,7 +69,7 @@ const Dashboard = () => {
         setActiveMenu={setActiveMenu}
       />
 
-      <div className="p-7 w-full">
+      <div className={`p-7 duration-300 ${open ? 'ml-72' : 'ml-20'} w-full`}>
         {renderContent()}
       </div>
     </div>
