@@ -45,9 +45,43 @@ Have a case in mind? Help improve our platform by recommending new cases, and co
 - Storage 16 GB
 
 ## Quick Start
-For the setup guide, please refer to [user-guide](/user-guide/)
+These are the steps to setup and run our program.
+1. Run setup script <b>(First time setup only)</b>
+
+    - For Windows (Make sure run it using Administrator)
+        ```
+        PS> .\setup.ps1
+        ```
+
+    - For Linux
+        ```
+        $ sudo chmod +x setup.sh
+        $ ./setup.sh
+        ```
+2. Setup your .env files. For the detailed guide, please refer to this [documentation](/user-guide/env.md)
+
+3. Insert GitHub ID to populate your database for application admin in this [file](/server/populate_db.js) <b>(OPTIONAL)</b>
+
+    To check GitHub ID, hit this API:
+    ```
+    https://api.github.com/users/your_github_user_name
+    ```
+
+4. Launch the server
+
+    - For Windows
+        ```
+        PS> .\start.ps1
+        ```
+
+    - For Linux
+        ```
+        $ ./start.sh
+        ```
+
+#### For MacOS user, please refer to [MacOS User Guide](/user-guide/macos.md)
 
 ## Contributors
-[xhfmvls](https://github.com/xhfmvls)<br>
-[vhsxuz](https://github.com/vhsxuz)<br>
-[newdna](https://github.com/newdna)
+- [xhfmvls](https://github.com/xhfmvls)<br>
+- [vhsxuz](https://github.com/vhsxuz)<br>
+- [newdna](https://github.com/newdna)
