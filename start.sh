@@ -25,7 +25,7 @@ check_env() {
 		echo "File '$fileName' found in all specified directories."
 	else
 		echo "File '$fileName' is missing in one or more directories."
-		echo "You can refer to this \e]8;;https://github.com/ProjectQuanC/quan-c-app/blob/main/user-guide/linux.md\aLinux Guidelines\e]8;;\a"
+		echo "You can refer to this \e]8;;https://github.com/ProjectQuanC/quan-c-app/blob/main/README.md\aGuidelines\e]8;;\a"
 		exit 1
 	fi
 }
