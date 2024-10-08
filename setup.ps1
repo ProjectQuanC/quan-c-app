@@ -140,6 +140,7 @@ python -m venv venv
 venv/Scripts/Activate
 pip install -r requirements.txt
 pip install quanchecker
+deactivate
 
 Write-Host "Setup finished..."
 cd "$base_dir"
