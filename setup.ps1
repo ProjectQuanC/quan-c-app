@@ -109,4 +109,40 @@ if (Test-Path $mysqlpath) {
 }
 
 Write-Host "All dependencies are installed!"
+
+Write-Host "Setting up everything..."
+Start-Sleep -Seconds 2
+
+$base_dir = $PWD
+
+# Client
+cd "$base_dir/client" || { Write-Host "Failed to change to client directory"; exit 1; }
+Write-Host "Installing client dependencies..."
+npm install
+
+# Admin-panel
+cd "$base_dir/admin-panel" || { Write-Host "Failed to change to admin-panel directory"; exit 1; }
+Write-Host "Installing admin-panel dependencies..."
+npm install
+
+# Server
+cd "$base_dir/server" || { Write-Host "Failed to change to server directory"; exit 1; }
+Write-Host "Installing server dependencies..."
+npm install
+npx prisma generate
+npx prisma migrate dev
+npm run build
+
+# Runner
+cd "$base_dir/runner" || { Write-Host "Failed to change to runner directory"; exit 1; }
+Write-Host "Installing runner dependencies..."
+python -m venv venv
+venv/Scripts/Activate
+pip install -r requirements.txt
+pip install quanchecker
+
+Write-Host "Setup finished..."
+cd "$base_dir"
+
+
 Write-Host "Setup complete!"
