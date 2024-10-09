@@ -57,7 +57,11 @@ foreach ($package in $dependencies) {
 			Write-Host "Installing $package..."
 
 			Write-Progress -Activity "Installing dependencies" -Status "Installing $package via Chocolatey" -PercentComplete 100 -Completed
-			choco install $package -y
+			if ($package -eq "python") {
+				choco install -y $package --override --install-arguments '/quiet InstallAllUsers=1 PrependPath=1 TargetDir=C:\Python3'
+			} else {
+				choco install $package -y
+			}
 			Show-Progress -currentStep $currentStep -totalSteps $totalSteps -Status "$package installation completed"
 		} else {
 			Write-Host "Skipping $package installation"
