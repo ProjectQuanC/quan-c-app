@@ -33,19 +33,20 @@ async function main() {
         throw new Error("User role not found");
     }
 
-    // Inserting the admin user
-    await prisma.user.createMany({
-        data: [
-            {
-                role_id: adminRole.role_id,
-                github_id: '', // FILL WITH ADMIN GITHUB ID
-            },
-            {
-                role_id: userRole.role_id,
-                github_id: '', // FILL WITH USER GITHUB ID (OPTIONAL)
-            }
-        ]
-    });
+    //(UNCOMMENT THIS IF YOU WANT TO INSERT ADMIN USER!)
+
+    // await prisma.user.createMany({
+    //     data: [
+    //         {
+    //             role_id: adminRole.role_id,
+    //             github_id: '', // FILL WITH ADMIN GITHUB ID
+    //         },
+    //         {
+    //             role_id: userRole.role_id,
+    //             github_id: '', // FILL WITH USER GITHUB ID (OPTIONAL)
+    //         }
+    //     ]
+    // });
 
 
 }
