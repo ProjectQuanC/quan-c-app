@@ -1,6 +1,6 @@
 # Checking env files
 
-$base_dir = $PWD
+$base_dir = Get-Location
 
 $directories = @(
 	"$base_dir\client",
@@ -32,7 +32,7 @@ if ($flag -ne 0) {
 }
 
 # Check docker engine
-$docker = Get-Process -Name "com.docker.service" -ErrorAction SilentlyContinue
+$docker = Get-Process -Name "Docker Desktop" -ErrorAction SilentlyContinue
 if ($docker) {
     Write-Host "Docker is running"
 } else {
@@ -41,17 +41,17 @@ if ($docker) {
 }
 
 # Runner
-$cmd_runner = 'cd $base_dir/runner; venv/Scripts/Activate; uvicorn app.main:app --port 8000'
-Start-Process powershell -ArgumentList "-NoExit", "-Command", $cmd_runner
+$cmd_runner = 'venv/Scripts/Activate; uvicorn app.main:app --port 8080'
+Start-Process pwsh -ArgumentList "-NoExit", "-Command", $cmd_runner -WorkingDirectory $base_dir\runner
 
 # Server
-$cmd_server = 'cd $base_dir/server; npm start'
-Start-Process powershell -ArgumentList "-NoExit", "-Command", $cmd_server
+$cmd_server = 'npm start'
+Start-Process pwsh -ArgumentList "-NoExit", "-Command", $cmd_server -WorkingDirectory $base_dir\server
 
 # Client
-$cmd_client = 'cd $base_dir/client; npm start'
-Start-Process powershell -ArgumentList "-NoExit", "-Command", $cmd_client
+$cmd_client = 'npm start'
+Start-Process pwsh -ArgumentList "-NoExit", "-Command", $cmd_client -WorkingDirectory $base_dir\client
 
 # Admin-panel
-$cmd_admin = 'cd $base_dir/admin-panel; npm start'
-Start-Process powershell -ArgumentList "-NoExit", "-Command", $cmd_admin
+$cmd_admin = 'npm start'
+Start-Process pwsh -ArgumentList "-NoExit", "-Command", $cmd_admin -WorkingDirectory $base_dir\admin-panel
