@@ -1,6 +1,6 @@
 # Checking env files
 
-$base_dir = $PWD
+$base_dir = Get-Location
 
 $directories = @(
 	"$base_dir\client",
@@ -47,6 +47,7 @@ Write-Host "Installing server dependencies..."
 npm install
 npx prisma generate
 npx prisma migrate dev
+node populate_db.js; 
 npm run build
 
 # Runner

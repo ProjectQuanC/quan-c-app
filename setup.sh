@@ -90,6 +90,7 @@ echo "Installing server dependencies...."
 npm install
 npx prisma generate
 npx prisma migrate dev
+node populate_db.js
 npm run build
 
 # runner
