@@ -14,10 +14,14 @@
 3. [Python](https://www.python.org/downloads/windows/)
 4. [NodeJS](https://nodejs.org/en/download/prebuilt-installer)
 5. [Git](https://git-scm.com/downloads/win)
+6. [Powershell 7](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.4#msi)
 
 <b>Ensure everything placed in the PATH environment variables</b>
 
 ## Getting Started
+
+<b>Important!</b>
+Make sure you have powershell 7 installed
 
 1. Clone the repository
     ```
