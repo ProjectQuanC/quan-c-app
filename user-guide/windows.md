@@ -35,7 +35,12 @@
 4. Create .env files for each server, client, admin-panel, and runner <br>
 <b>There are .env.example provided already</b>
 
-5. Run the start.sh script
+5. Run the setup script and wait for the script to autosetup the application
+    ```
+    .\setup.ps1
+    ```
+
+6. Run the start script to start the servers
     ```
     .\start.ps1
     ```
