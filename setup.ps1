@@ -2,7 +2,7 @@
 
 $base_dir = $PWD
 
-$directories = @ (
+$directories = @(
 	"$base_dir\client",
 	"$base_dir\runner",
 	"$base_dir\admin-panel",
@@ -24,9 +24,10 @@ foreach ($dir in $directories) {
 		Write-Host "Directory not found: $dir"
 		$flag = 2
 	}
+	Write-Host "`n"
 }
 # Exit progress if missing file or directory
-if ($flag != 0) {
+if ($flag -ne 0) {
 	exit 1;
 }
 
