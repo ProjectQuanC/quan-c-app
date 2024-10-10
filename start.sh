@@ -45,7 +45,7 @@ echo "Starting runner..."
 gnome-terminal -- bash -c "cd $current_dir/runner; source venv/bin/activate; uvicorn app.main:app --port 8080;  exec bash"
 
 echo "Starting backend server..."
-gnome-terminal -- bash -c "cd $current_dir/server; node populate_db.js; npm start; exec bash"
+gnome-terminal -- bash -c "cd $current_dir/server; npm start; exec bash"
 
 echo "Starting frontend server..."
 gnome-terminal -- bash -c "cd $current_dir/client; npm start; exec bash"
