@@ -1,123 +1,153 @@
-# Run script with Admin privilege
-if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-	Write-Host "This script must be run as Administrator!" -ForeGroundColor Red
-	exit
-}
+# # Run script with Admin privilege
+# if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+# 	Write-Host "This script must be run as Administrator!" -ForeGroundColor Red
+# 	exit
+# }
 
-# Set Execution Policy
-Set-ExecutionPolicy Bypass -Scope Process -Force
+# # Set Execution Policy
+# Set-ExecutionPolicy Bypass -Scope Process -Force
 
-# Define required dependencies
-$dependencies = @(
-	"git",
-	"nodejs",
-	"python",
-	"docker-desktop",
-	"mysql"
-)
+# # Define required dependencies
+# $dependencies = @(
+# 	"git",
+# 	"nodejs",
+# 	"python",
+# 	"docker-desktop",
+# 	"mysql"
+# )
 
-# Display progress
-function Show-Progress {
-	param (
-		[int]$currentStep,
-		[int]$totalSteps,
-		[string]$status
-	)
-	$percentComplete = [math]::Round(($currentStep / $totalSteps) * 100)
-	Write-Progress -Activity "Installing dependencies" -Status $status -PercentComplete $percentComplete
-}
+# # Display progress
+# function Show-Progress {
+# 	param (
+# 		[int]$currentStep,
+# 		[int]$totalSteps,
+# 		[string]$status
+# 	)
+# 	$percentComplete = [math]::Round(($currentStep / $totalSteps) * 100)
+# 	Write-Progress -Activity "Installing dependencies" -Status $status -PercentComplete $percentComplete
+# }
 
-# Check installation of chocolatey
-if (-not (Get-Command choco -Erroraction SilentlyContinue)) {
-	Write-Host "Chocolatey not found. Installing Chocolatey..."
-	$installScript = "https://chocolatey.org/install.ps1"
-	Invoke-Expression ((New-Object System.Net.WebClient).DownloadString($installScript))
-} else {
-	Write-Host "Chocolatey already installed."
-}
+# # Check installation of chocolatey
+# if (-not (Get-Command choco -Erroraction SilentlyContinue)) {
+# 	Write-Host "Chocolatey not found. Installing Chocolatey..."
+# 	$installScript = "https://chocolatey.org/install.ps1"
+# 	Invoke-Expression ((New-Object System.Net.WebClient).DownloadString($installScript))
+# } else {
+# 	Write-Host "Chocolatey already installed."
+# }
 
-# Initialize progress
-$totalSteps = $dependencies.Count
-$currentStep = 0
+# # Initialize progress
+# $totalSteps = $dependencies.Count
+# $currentStep = 0
 
-# Install dependencies using Chocolatey
-foreach ($package in $dependencies) {
-	$currentStep++
-	Show-Progress -currentStep $currentStep -totalSteps $totalSteps -status "Installing $package"
+# # Install dependencies using Chocolatey
+# foreach ($package in $dependencies) {
+# 	$currentStep++
+# 	Show-Progress -currentStep $currentStep -totalSteps $totalSteps -status "Installing $package"
 
-	if (choco list --local-only | Select-String $package) {
-		Write-Host "$package is already installed."
+# 	if (choco list --local-only | Select-String $package) {
+# 		Write-Host "$package is already installed."
 
-	} else {
-		Write-Host "Ready to install $package"
+# 	} else {
+# 		Write-Host "Ready to install $package"
 
-		# User confirmation
-		$confirm = Read-Host "Do you want to install $package? (y/n)"
-		if ($confirm -eq "y") {
-			Write-Host "Installing $package..."
+# 		# User confirmation
+# 		$confirm = Read-Host "Do you want to install $package? (y/n)"
+# 		if ($confirm -eq "y") {
+# 			Write-Host "Installing $package..."
 
-			Write-Progress -Activity "Installing dependencies" -Status "Installing $package via Chocolatey" -PercentComplete 100 -Completed
-			if ($package -eq "python") {
-				choco install -y $package --override --install-arguments '/quiet InstallAllUsers=1 PrependPath=1 TargetDir=C:\Python3'
-			} else {
-				choco install $package -y
-			}
-			Show-Progress -currentStep $currentStep -totalSteps $totalSteps -Status "$package installation completed"
-		} else {
-			Write-Host "Skipping $package installation"
-		}
-	}
-}
+# 			Write-Progress -Activity "Installing dependencies" -Status "Installing $package via Chocolatey" -PercentComplete 100 -Completed
+# 			if ($package -eq "python") {
+# 				choco install -y $package --override --install-arguments '/quiet InstallAllUsers=1 PrependPath=1 TargetDir=C:\Python3'
+# 			} else {
+# 				choco install $package -y
+# 			}
+# 			Show-Progress -currentStep $currentStep -totalSteps $totalSteps -Status "$package installation completed"
+# 		} else {
+# 			Write-Host "Skipping $package installation"
+# 		}
+# 	}
+# }
 
-# Checking git
-Show-Progress -currentStep $currentStep -totalSteps	$totalSteps -status "Configuring Git in PATH"
+# # Checking git
+# Show-Progress -currentStep $currentStep -totalSteps	$totalSteps -status "Configuring Git in PATH"
 
-$gitpath = "C:\Program Files\Git\bin"
+# $gitpath = "C:\Program Files\Git\bin"
 
-# Check git path and adding to env variables
-if (Test-Path $gitpath) {
-	$currentPath = [System.Environment]::GetEnvironmentVariable("Path", [System.EnvironmentVariableTarget]::Machine)
+# # Check git path and adding to env variables
+# if (Test-Path $gitpath) {
+# 	$currentPath = [System.Environment]::GetEnvironmentVariable("Path", [System.EnvironmentVariableTarget]::Machine)
 
-	if (-not ($currentPath -like "*$gitpath*")) {
-		Write-Host "Adding Git to PATH..."
+# 	if (-not ($currentPath -like "*$gitpath*")) {
+# 		Write-Host "Adding Git to PATH..."
 
-		[System.Environment]::SetEnvironmentVariable("Path", "$currentPath;$gitpath", [System.EnvironmentVariableTarget]::Machine)
-		$env:Path += ";$gitpath"
-		Write-Host "Git has been added to PATH."
-	} else {
-		Write-Host "Git is already in the PATH."
-	}
-} else {
-	Write-Host "Git installation path not found"
-}
+# 		[System.Environment]::SetEnvironmentVariable("Path", "$currentPath;$gitpath", [System.EnvironmentVariableTarget]::Machine)
+# 		$env:Path += ";$gitpath"
+# 		Write-Host "Git has been added to PATH."
+# 	} else {
+# 		Write-Host "Git is already in the PATH."
+# 	}
+# } else {
+# 	Write-Host "Git installation path not found"
+# }
 
-# Checking MySQL
-Show-Progress -currentStep $currentStep -totalSteps $totalSteps -status "Configuring MySQL in PATH"
+# # Checking MySQL
+# Show-Progress -currentStep $currentStep -totalSteps $totalSteps -status "Configuring MySQL in PATH"
 
-$mysqlpath = "C:\tools\mysql\current\bin"
+# $mysqlpath = "C:\tools\mysql\current\bin"
 
-# Check MySQL path and adding to env variables
-if (Test-Path $mysqlpath) {
-	$currentPath = [System.Environment]::GetEnvironmentVariable("Path", [System.EnvironmentVariableTarget]::Machine)
+# # Check MySQL path and adding to env variables
+# if (Test-Path $mysqlpath) {
+# 	$currentPath = [System.Environment]::GetEnvironmentVariable("Path", [System.EnvironmentVariableTarget]::Machine)
 
-	if (-not ($currentPath -like "*$mysqlpath*")) {
-		Write-Host "Adding MySQL to PATH..."
-		[System.Environment]::SetEnvironmentVariable("Path", "$currentPath;$mysqlpath", [System.EnvironmentVariableTarget]::Machine)
-		$env:Path += ";$mysqlpath"
-		Write-Host "MySQL has been added to PATH."
-	} else {
-		Write-Host "MySQL is already in the PATH."
-	}
-} else {
-	Write-Host "MySQL installation not found"
-}
+# 	if (-not ($currentPath -like "*$mysqlpath*")) {
+# 		Write-Host "Adding MySQL to PATH..."
+# 		[System.Environment]::SetEnvironmentVariable("Path", "$currentPath;$mysqlpath", [System.EnvironmentVariableTarget]::Machine)
+# 		$env:Path += ";$mysqlpath"
+# 		Write-Host "MySQL has been added to PATH."
+# 	} else {
+# 		Write-Host "MySQL is already in the PATH."
+# 	}
+# } else {
+# 	Write-Host "MySQL installation not found"
+# }
 
-Write-Host "All dependencies are installed!"
+# Write-Host "All dependencies are installed!"
 
-Write-Host "Setting up everything..."
-Start-Sleep -Seconds 2
+# Write-Host "Setting up everything..."
+# Start-Sleep -Seconds 2
+
+# Checking env files
 
 $base_dir = $PWD
+
+$directories = @ (
+	"$base_dir\client",
+	"$base_dir\runner",
+	"$base_dir\admin-panel",
+	"$base_dir\server"
+)
+$flag = 0
+foreach ($dir in $directories) {
+	if (Test-Path $dir) {
+		Write-Host "Checking directory: $dir"
+
+		$envFilePath = Join-Path $dir ".env"
+		if (Test-Path $envFilePath) {
+			Write-Host "Found .env file in: $dir"
+		} else {
+			Write-Host "No .env file found in: $dir"
+			$flag = 1
+		}
+	} else {
+		Write-Host "Directory not found: $dir"
+		$flag = 2
+	}
+}
+# Exit progress if missing file or directory
+if ($flag != 0) {
+	exit 1;
+}
 
 # Client
 cd "$base_dir/client" || { Write-Host "Failed to change to client directory"; exit 1; }
@@ -148,6 +178,3 @@ deactivate
 
 Write-Host "Setup finished..."
 cd "$base_dir"
-
-
-Write-Host "Setup complete!"
