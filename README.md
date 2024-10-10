@@ -31,11 +31,12 @@ Compete with others by solving cases and racing to secure the top spot on the le
 - <u><b>Collaborate With Us </b></u> \
 Have a case in mind? Help improve our platform by recommending new cases, and contribute to creating a more robust learning experience for all users.
 
-## Minimum Requirements
+## Minimum Software Requirements
 - Python 3.9.x
 - Pip 24.x
 - NodeJS 20.9.x
 - npm 10.x.x
+- Powershell 7 (for Windows only)
 
 ## Minimum Hardware Requirements
 - Windows 10/11, Server 2019/2022
@@ -45,19 +46,16 @@ Have a case in mind? Help improve our platform by recommending new cases, and co
 - Storage 16 GB
 
 ## Quick Start
+#### For MacOS user, please refer to [MacOS User Guide](/user-guide/macos.md)
+#### For Windows user, please refer to [Windows User Guide](/user-guide/windows.md)
 These are the steps to setup and run our program.
+
 1. Run setup script <b>(First time setup only)</b>
+    ```
+    $ sudo chmod +x setup.sh
+    $ ./setup.sh
+    ```
 
-    - For Windows (Make sure run it using Administrator)
-        ```
-        PS> .\setup.ps1
-        ```
-
-    - For Linux
-        ```
-        $ sudo chmod +x setup.sh
-        $ ./setup.sh
-        ```
 2. Setup your .env files. For the detailed guide, please refer to this [documentation](/user-guide/env.md)
 
 3. Insert GitHub ID to populate your database for application admin in this [file](/server/populate_db.js) <b>(OPTIONAL)</b>
@@ -68,18 +66,11 @@ These are the steps to setup and run our program.
     ```
 
 4. Launch the server
+    ```
+    $ ./start.sh
+    ```
 
-    - For Windows
-        ```
-        PS> .\start.ps1
-        ```
 
-    - For Linux
-        ```
-        $ ./start.sh
-        ```
-
-#### For MacOS user, please refer to [MacOS User Guide](/user-guide/macos.md)
 
 ## Contributors
 - [xhfmvls](https://github.com/xhfmvls)<br>
