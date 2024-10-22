@@ -48,14 +48,14 @@ CLIENT_ID=[Github Client ID]
 https://github.com/ProjectQuanC/quan-c-app.git
 cd quan-c-app/
 ```
-2. Run the Script
-```
-sh start_mac.sh
-```
-3. setup the `.env` values based on the example provided in `.env.example` in every directory
+2. setup the `.env` values based on the example provided in `.env.example` in every directory
     - [client .env](../client/.env)
     - [admin panel .env](../server/.env) (if needed)
     - [server .env](../server/.env)
-    - [runner .env](../runner/.env)
+    - [runner .env](../runner/.env) 
+3. Run the Script
+```
+sh start_mac.sh
+```
 4. go to http://localhost:3000
 
