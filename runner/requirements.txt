@@ -28,7 +28,7 @@ python-multipart==0.0.9
 python-on-whales==0.71.0
 # pywin32==306
 PyYAML==6.0.1
-quanchecker==0.0.2
+quanchecker==0.0.7
 requests==2.32.2
 rich==13.7.1
 shellingham==1.5.4

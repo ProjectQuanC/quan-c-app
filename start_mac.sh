@@ -62,7 +62,7 @@ echo "Activating the virtual environment..."
 source "$CURRENT_DIR/runner/venv/bin/activate"
 
 # Start the backend server using uvicorn in a new Terminal tab (macOS)
-osascript -e 'tell application "Terminal" to do script "cd '"$CURRENT_DIR"'/runner && source venv/bin/activate && uvicorn app.main:app --port 8080"'
+osascript -e 'tell application "Terminal" to do script "cd '"$CURRENT_DIR"'/runner && source venv/bin/activate && python3 -m pip install -r requirements.txt && uvicorn app.main:app --port 8080"'
 osascript -e 'tell application "Terminal" to do script "cd '"$CURRENT_DIR"'/server && npm install && npm run run"'
 
 # Start the frontend in a new Terminal tab (macOS)

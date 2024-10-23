@@ -53,9 +53,13 @@ cd quan-c-app/
     - [admin panel .env](../server/.env) (if needed)
     - [server .env](../server/.env)
     - [runner .env](../runner/.env) 
-3. Run the Script
+3. Create virtual environment
+```
+python3 -m venv venv
+```
+4. Run the Script
 ```
 sh start_mac.sh
 ```
-4. go to http://localhost:3000
+5. go to http://localhost:3000
 
