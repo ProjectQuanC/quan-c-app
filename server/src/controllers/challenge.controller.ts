@@ -165,6 +165,34 @@ export const getChallengeLeaderboard = async (req: express.Request, res: express
     return res.json(jsonResponse);
 }
 
+export const getChallengeLeaderboardSummary = async (req: express.Request, res: express.Response) => {
+    const { challengeId } = req.params;
+
+    const firstBloodSubmission = await prisma.submission.findFirst({
+        where: {
+            challenge_id: challengeId,
+            status: true,
+        },
+        orderBy: {
+            created_at: 'asc',
+        },
+    });
+
+    const totalSuccessfulSubmissions = await prisma.$queryRaw`SELECT COUNT(DISTINCT user_id) as 'COUNT' FROM submission WHERE challenge_id = ${challengeId} AND status = true`;
+
+
+    const jsonResponse: JsonResponse = {
+        success: true,
+        message: 'Leaderboard summary fetched successfully',
+        data: {
+            firstBlood: firstBloodSubmission,
+            totalSubmissions: parseInt(totalSuccessfulSubmissions[0].COUNT),
+        },
+    };
+
+    return res.json(jsonResponse);
+}
+
 export const getChallengeDetails = async (req: express.Request, res: express.Response) => {
     const { challengeId } = req.params;
 
