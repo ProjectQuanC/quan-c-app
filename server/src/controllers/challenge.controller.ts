@@ -49,7 +49,7 @@ export const submitChallege = async (req: express.Request, res: express.Response
         throw new CustomError('Only zip files are allowed');
     }
 
-    const uploadPath = '../quan-c-runner/challenges/';
+    const uploadPath = '../runner/challenges/';
 
     const filePath = path.join(uploadPath, `${challengeId}.zip`);
 

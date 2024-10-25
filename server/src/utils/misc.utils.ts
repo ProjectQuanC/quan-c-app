@@ -152,7 +152,7 @@ async function executeRunFileCommands(runFilePath: string): Promise<void> {
 }
 
 const deleteChallengeFolder = async (challengeId: string) => {
-    const challengeFolder = path.join(__dirname, `../../../quan-c-runner/challenges/${challengeId}`);
+    const challengeFolder = path.join(__dirname, `../../../runner/challenges/${challengeId}`);
     try {
         await fs.promises.rm(challengeFolder, { recursive: true });
     } 

@@ -116,12 +116,13 @@ function AddChallenge() {
               />
             </div>
             <div>
-              <label htmlFor="url" className="block text-sm font-medium text-gray-700 mb-1">Challenge URL</label>
+              <label htmlFor="url" className="block text-sm font-medium text-gray-700 mb-1">Challenge Repo URL</label>
               <input
                 id="url"
                 type="text"
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
+                placeholder="https://github.com/[account]/[repo-name]"
                 required
                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
@@ -141,7 +142,7 @@ function AddChallenge() {
               />
             </div>
             <div>
-              <label htmlFor="testCases" className="block text-sm font-medium text-gray-700 mb-1">Total Test Cases</label>
+              <label htmlFor="testCases" className="block text-sm font-medium text-gray-700 mb-1">Total Test Cases (in checker.py)</label>
               <input
                 id="testCases"
                 type="number"
