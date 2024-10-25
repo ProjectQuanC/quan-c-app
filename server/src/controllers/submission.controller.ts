@@ -111,7 +111,7 @@ export const getSubmissionLog = async (req: express.Request, res: express.Respon
             throw new CustomError('Submission not found');
         }
         const path_hash = submission.log_file_path;
-        logPath = `../quan-c-runner/logs/${path_hash}`;
+        logPath = `../runner/logs/${path_hash}`;
     }
     catch (err) {
         throw new CustomError('Failed to fetch submission log');
