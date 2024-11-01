@@ -90,6 +90,8 @@ echo "Installing server dependencies...."
 npm install
 npx prisma generate
 npx prisma migrate dev
+read -p "Please input your github username: " username
+export USER_NAME="$username"
 node populate_db.js
 npm run build
 

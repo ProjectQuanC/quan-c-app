@@ -1,60 +1,61 @@
+const axios = require('axios');
 const { PrismaClient } = require('@prisma/client');
 
 const prisma = new PrismaClient();
 
+async function fetchGitHubUser(username) {
+  try {
+    const response = await axios.get(`https://api.github.com/users/${username}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching GitHub user data:", error);
+    throw error;
+  }
+}
+
 async function main() {
-    // Inserting roles
-    await prisma.userRole.createMany({
-        data: [
-            { role_name: 'user' },
-            { role_name: 'admin' }
-        ]
-    });
+  await prisma.userRole.createMany({
+    data: [
+      { role_name: 'user' },
+      { role_name: 'admin' }
+    ],
+    skipDuplicates: true  });
 
-    // Retrieving the role_id for the 'admin' role
     const adminRole = await prisma.userRole.findFirst({
-        where: {
-            role_name: 'admin'
-        }
-    });
+    where: { role_name: 'admin' }
+  });
 
-    // Retrieving the role_id for the 'user' role'
-    const userRole = await prisma.userRole.findFirst({
-        where: {
-            role_name: 'user'
-        }
-    });
+  const userRole = await prisma.userRole.findFirst({
+    where: { role_name: 'user' }
+  });
 
-    if (!adminRole) {
-        throw new Error("Admin role not found");
-    }
+  if (!adminRole) throw new Error("Admin role not found");
+  if (!userRole) throw new Error("User role not found");
 
-    if (!userRole) {
-        throw new Error("User role not found");
-    }
+  const username = process.env.USER_NAME;
+  if (!username) throw new Error("USER_NAME environment variable not set");
 
-    //(UNCOMMENT THIS IF YOU WANT TO INSERT ADMIN USER!)
+  const githubUserData = await fetchGitHubUser(username);
 
-    // await prisma.user.createMany({
-    //     data: [
-    //         {
-    //             role_id: adminRole.role_id,
-    //             github_id: '', // FILL WITH ADMIN GITHUB ID
-    //         },
-    //         {
-    //             role_id: userRole.role_id,
-    //             github_id: '', // FILL WITH USER GITHUB ID (OPTIONAL)
-    //         }
-    //     ]
-    // });
-
+   await prisma.user.createMany({
+    data: [
+      {
+        role_id: adminRole.role_id,
+        github_id: githubUserData.id.toString(), // Using the GitHub user's ID as github_id
+      },
+      {
+        role_id: userRole.role_id,
+        github_id: '' // Replace with another GitHub user ID if necessary
+      }
+    ]
+  });
 
 }
 
 main()
-    .catch(e => {
-        throw e;
-    })
-    .finally(async () => {
-        await prisma.$disconnect();
-    });
+  .catch(e => {
+    console.error("An error occurred:", e);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });
