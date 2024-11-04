@@ -53,6 +53,7 @@ cd quan-c-app/
     - [admin panel .env](../server/.env) (if needed)
     - [server .env](../server/.env)
     - [runner .env](../runner/.env) 
+3. create `challenges` and `submissions` folder in [runner](../runner/)
 3. Create virtual environment
 ```
 python3 -m venv venv
