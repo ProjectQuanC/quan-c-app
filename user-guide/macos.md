@@ -54,13 +54,13 @@ cd quan-c-app/
     - [server .env](../server/.env)
     - [runner .env](../runner/.env) 
 3. create `challenges` and `submissions` folder in [runner](../runner/)
-3. Create virtual environment
+4. Create virtual environment
 ```
 python3 -m venv venv
 ```
-4. Run the Script
+5. Run the Script
 ```
 sh start_mac.sh
 ```
-5. go to http://localhost:3000
+6. go to http://localhost:3000
 
