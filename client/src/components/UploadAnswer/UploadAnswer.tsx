@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { IoIosCloudUpload } from 'react-icons/io'
 import { IoCloudUploadOutline } from "react-icons/io5"
 import { FaFileAlt } from "react-icons/fa"
@@ -26,6 +26,8 @@ export default function UploadAnswer({ user_id, challenge_id, total_test_case }:
   const [isSuccess, setIsSuccess] = useState(false);
   const [passedTestCase, setPassedTestCase] = useState<number[]>([]);
   const [showModal, setShowModal] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [showResult, setShowResult] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const token = localStorage.getItem(`${process.env.REACT_APP_TOKEN_NAME}`);
@@ -52,10 +54,40 @@ export default function UploadAnswer({ user_id, challenge_id, total_test_case }:
     fileInputRef.current?.click();
   };
 
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (isLoading) {
+      interval = setInterval(() => {
+        setProgress((prevProgress) => {
+          if (prevProgress >= 99) {
+            clearInterval(interval);
+            return 99;
+          }
+          return Math.min(prevProgress + 2, 99);
+        });
+      }, 500);
+    } else if (progress > 0 && progress < 100) {
+      // When isLoading becomes false, quickly complete the progress bar
+      interval = setInterval(() => {
+        setProgress((prevProgress) => {
+          if (prevProgress >= 100) {
+            clearInterval(interval);
+            return 100;
+          }
+          return prevProgress + 1;
+        });
+      }, 20);
+    }
+
+    return () => clearInterval(interval);
+  }, [isLoading, progress]);
+
   const handleSubmitAnswer = (file: File) => {
+    setProgress(0);
     setIsChecking(true);
     setIsLoading(true);
     setShowModal(true);
+    setShowResult(false);
     
     const data = new FormData();
     data.append('userId', user_id);
@@ -97,7 +129,6 @@ export default function UploadAnswer({ user_id, challenge_id, total_test_case }:
   const totalPassed = testCaseArray.reduce((count, testCase) => {
     return passedTestCaseArray.includes(testCase) ? count + 1 : count;
   }, 0);
-
 
   const getLog = () => {
     const url = process.env.REACT_APP_API_BASE_URL
@@ -181,10 +212,20 @@ export default function UploadAnswer({ user_id, challenge_id, total_test_case }:
               transform: 'translate(-50%, -50%)',
             }}
           >
-            {isLoading ? (
+            {progress < 100 ? (
               <div className="flex flex-col items-center justify-center">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
-                <p className="mt-4 text-lg font-semibold text-gray-700">Checking your answer...</p>
+                <div className="w-64 bg-gray-200 rounded-full h-6 overflow-hidden">
+                  <div 
+                    className="bg-blue-500 h-full transition-all duration-500 ease-out"
+                    style={{ width: `${progress}%` }}
+                  ></div>
+                </div>
+                <p className="mt-4 text-lg font-semibold text-gray-700">
+                  {isLoading ? 'Checking your answer...' : 'Almost there...'}
+                </p>
+                <p className="mt-2 text-sm text-gray-500">
+                  {progress}%
+                </p>
               </div>
             ) : (
               <div className="flex flex-col items-center justify-center">
@@ -198,14 +239,14 @@ export default function UploadAnswer({ user_id, challenge_id, total_test_case }:
                   <>
                     <div className="text-red-500 text-5xl mb-4">✗</div>
                     <p className="text-lg font-semibold text-red-500">Incorrect Answer</p>
-                    { testCaseArray.map((testCase) => (
-                        <p key={testCase} className='mt-2'>
-                          TestCase {testCase}:{' '}
-                          <span className={passedTestCase.includes(testCase) ? 'text-green-500' : 'text-red-500'}>
-                            {passedTestCase.includes(testCase) ? '✓' : '✗'}
-                          </span>
-                        </p>
-                      ))}
+                    {testCaseArray.map((testCase) => (
+                      <p key={testCase} className='mt-2'>
+                        TestCase {testCase}:{' '}
+                        <span className={passedTestCase.includes(testCase) ? 'text-green-500' : 'text-red-500'}>
+                          {passedTestCase.includes(testCase) ? '✓' : '✗'}
+                        </span>
+                      </p>
+                    ))}
                     <p className="mt-2 text-gray-600">You passed {totalPassed} out of {total_test_case} test cases.</p>
                     {log ? (
                       <>
@@ -217,7 +258,6 @@ export default function UploadAnswer({ user_id, challenge_id, total_test_case }:
                           color: 'rgb(75 85 99)',
                           marginTop: "0.5rem"
                         }}
-                        
                         className=''>
                           {log.data
                             .replace(/^"|"$/g, '')
@@ -256,7 +296,6 @@ export default function UploadAnswer({ user_id, challenge_id, total_test_case }:
           </div>
         </div>
       )}
-
     </div>
   );
 }
