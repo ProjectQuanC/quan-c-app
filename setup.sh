@@ -73,6 +73,7 @@ echo "Setting up...."
 sleep 3
 
 base_dir=$PWD
+./sqlcreate.sh
 
 # client
 cd "$base_dir/client" || { echo "Failed to change to client directory"; exit 1; }
