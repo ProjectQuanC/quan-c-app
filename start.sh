@@ -42,16 +42,16 @@ echo "Starting docker daemon..."
 sudo service docker start
 
 echo "Starting runner..."
-gnome-terminal -- bash -c "cd $current_dir/runner; source venv/bin/activate; uvicorn app.main:app --port 8080;  exec bash"
+screen -dmS runner bash -c "cd $current_dir/runner; source venv/bin/activate; uvicorn app.main:app --port 8080; exec bash"
 
 echo "Starting backend server..."
-gnome-terminal -- bash -c "cd $current_dir/server; npm start; exec bash"
+screen -dmS backend_server bash -c "cd $current_dir/server; npm start; exec bash"
 
 echo "Starting frontend server..."
-gnome-terminal -- bash -c "cd $current_dir/client; npm start; exec bash"
+screen -dmS frontend_server bash -c "cd $current_dir/client; npm start; exec bash"
 
 echo "Starting admin-panel..."
-gnome-terminal -- bash -c "cd $current_dir/admin-panel; npm start; exec bash"
+screen -dmS admin_panel bash -c "cd $current_dir/admin-panel; npm start; exec bash"
 
 echo "All server has been started successfully!"
 exit
