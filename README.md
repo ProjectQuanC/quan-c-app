@@ -43,8 +43,8 @@ Quan C provides an engaging platform for improving secure coding skills through 
 Users can upload their solution to each challenge, and Quan C Runner will automatically validate it by executing the code and testing the application using pre-configured payloads to ensure the submitted code meets the requirements.
 <br> <br>
 <div style="display: flex; gap: 10px; justify-content: center; align-items: center;">
-        <img src="image/submission-success.jpeg" alt="Image 1" style="width: auto; height: 300px;">
-        <img src="image/submission-failed.jpeg" alt="Image 2" style="width: auto; height: 300px;">
+        <img src="image/submission-success.jpeg" alt="Image 1" style="width: auto; height: 200px;">
+        <img src="image/submission-failed.jpeg" alt="Image 2" style="width: auto; height: 200px;">
 </div> <br>
 
 - <u><b>Leaderboards </b></u> \
