@@ -37,7 +37,7 @@ If you're just looking to improve your secure coding skills without the need to 
 - <u><b>Secure Coding Challenges </b> </u> \
 Quan C provides an engaging platform for improving secure coding skills through hands-on secure coding challenges.
 <br>
-<img src="image/challenge-list.jpg" alt="Homepage"> <br>
+<img src="image/challenge-list.png" alt="Homepage"> <br>
 
 - <u><b>Challenge Solving </b> </u> \
 Users can upload their solution to each challenge, and Quan C Runner will automatically validate it by executing the code and testing the application using pre-configured payloads to ensure the submitted code meets the requirements.
