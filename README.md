@@ -20,7 +20,7 @@
 ## Quan C
 <b>Quan C</b> is an open source Secure Programming Platform that aims to train developers and IT security practitioners to level up their secure programming knowledges and skills.
 
-<img src="image/homepage.jpeg" alt="Homepage"> <br>
+<a href="https://projectquanc.com"><img src="image/homepage.jpeg" alt="Homepage"></a> <br>
 
 ## Usage
 Quan C is designed to be flexible for different types of users:
@@ -37,7 +37,7 @@ If you're just looking to improve your secure coding skills without the need to 
 - <u><b>Secure Coding Challenges </b> </u> \
 Quan C provides an engaging platform for improving secure coding skills through hands-on secure coding challenges.
 <br>
-<img src="image/profile-challenges.jpeg" alt="Homepage"> <br>
+<img src="image/challenge-list.jpg" alt="Homepage"> <br>
 
 - <u><b>Challenge Solving </b> </u> \
 Users can upload their solution to each challenge, and Quan C Runner will automatically validate it by executing the code and testing the application using pre-configured payloads to ensure the submitted code meets the requirements.
