@@ -42,16 +42,22 @@ echo "Starting docker daemon..."
 sudo service docker start
 
 echo "Starting runner..."
-screen -dmS runner bash -c "cd $current_dir/runner; source venv/bin/activate; uvicorn app.main:app --port 8080; exec bash"
+screen -dmS runner bash -c "cd $current_dir/runner; source venv/bin/activate; uvicorn app.main:app --host 127.0.0.1 --port 8080; exec bash"
 
 echo "Starting backend server..."
-screen -dmS backend_server bash -c "cd $current_dir/server; npm start; exec bash"
+#screen -dmS backend_server bash -c "cd $current_dir/server; npm start; exec bash"
+cd $current_dir/server
+pm2 start dist/index.js --name "server"
 
 echo "Starting frontend server..."
-screen -dmS frontend_server bash -c "cd $current_dir/client; npm start; exec bash"
+#screen -dmS frontend_server bash -c "cd $current_dir/client; npm run build; npm start; exec bash"
+cd $current_dir/client
+pm2 start node_modules/react-scripts/scripts/start.js --name "client"
 
 echo "Starting admin-panel..."
-screen -dmS admin_panel bash -c "cd $current_dir/admin-panel; npm start; exec bash"
+#screen -dmS admin_panel bash -c "cd $current_dir/admin-panel; npm run build; npm start; exec bash"
+cd $current_dir/admin-panel
+pm2 start node_modules/react-scripts/scripts/start.js --name "admin"
 
 echo "All server has been started successfully!"
 exit

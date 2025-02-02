@@ -120,10 +120,10 @@ def execute_query(query, params):
 
 def insert_submission(submission_id: str, user_id: str, challenge_id: str, status: bool, passed_test_case_value: int, log_file_path: str = None):
     if log_file_path:
-        query = 'INSERT INTO submission (submission_id, user_id, challenge_id, status, passed_test_case_value, log_file_path) VALUES (%s, %s, %s, %s, %s, %s);'
+        query = 'INSERT INTO Submission (submission_id, user_id, challenge_id, status, passed_test_case_value, log_file_path) VALUES (%s, %s, %s, %s, %s, %s);'
         params = (submission_id, user_id, challenge_id, status, passed_test_case_value, log_file_path)
     else:
-        query = 'INSERT INTO submission (submission_id, user_id, challenge_id, status, passed_test_case_value) VALUES (%s, %s, %s, %s, %s);'
+        query = 'INSERT INTO Submission (submission_id, user_id, challenge_id, status, passed_test_case_value) VALUES (%s, %s, %s, %s, %s);'
         params = (submission_id, user_id, challenge_id, status, passed_test_case_value)
 
     try:

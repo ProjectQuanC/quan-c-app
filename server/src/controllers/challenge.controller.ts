@@ -96,7 +96,7 @@ export const getChallengeLeaderboard = async (req: express.Request, res: express
     const challengeId: string = body.challengeId;
     const userId: string = body.userId;
 
-    const topTenLeaderboard = await prisma.submission.findMany({
+    const topTenLeaderboard = await prisma.Submission.findMany({
         where: {
             challenge_id: challengeId,  // Filter by challenge ID
             status: true,               // Only correct submissions
@@ -128,7 +128,7 @@ export const getChallengeLeaderboard = async (req: express.Request, res: express
         }))
     );
 
-    const userSubmission = await prisma.submission.findFirst({
+    const userSubmission = await prisma.Submission.findFirst({
         where: {
             user_id: userId,  // The user ID you're looking for
             challenge_id: challengeId,
@@ -148,7 +148,7 @@ export const getChallengeLeaderboard = async (req: express.Request, res: express
         return res.json(jsonResponse);
     }
 
-    const userRankResult = await prisma.$queryRaw`SELECT COUNT(DISTINCT user_id) as 'COUNT' FROM submission WHERE challenge_id = ${challengeId} AND status = true AND created_at < ${userSubmission.created_at}`;
+    const userRankResult = await prisma.$queryRaw`SELECT COUNT(DISTINCT user_id) as 'COUNT' FROM Submission WHERE challenge_id = ${challengeId} AND status = true AND created_at < ${userSubmission.created_at}`;
 
     const userRank = parseInt(userRankResult[0].COUNT);
     // const userRank = (userRankResult as { count: number }[])[0]?.count ?? 0;
@@ -178,7 +178,7 @@ export const getChallengeLeaderboardSummary = async (req: express.Request, res: 
         },
     });
 
-    const totalSuccessfulSubmissions = await prisma.$queryRaw`SELECT COUNT(DISTINCT user_id) as 'COUNT' FROM submission WHERE challenge_id = ${challengeId} AND status = true`;
+    const totalSuccessfulSubmissions = await prisma.$queryRaw`SELECT COUNT(DISTINCT user_id) as 'COUNT' FROM Submission WHERE challenge_id = ${challengeId} AND status = true`;
 
 
     const jsonResponse: JsonResponse = {
